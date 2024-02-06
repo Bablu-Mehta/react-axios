@@ -1,0 +1,43 @@
+.container {
+  width: 400px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #fff;
+  padding: 10px;
+  margin: 0 auto;
+}
+
+.container > ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 10px 20px;
+}
+
+.container > ul > li {
+  font-size: 20px;
+}
+
+.button {
+    border: 1px solid grey;
+    border-radius: 16px;
+    padding: 6px 20px;
+    font-size: 18px;
+    background-color: grey;
+    color: #fff;
+    font-weight: 500;
+    transition: 0.2s ease-out;
+  }
+  
+  .button:hover {
+    cursor: pointer;
+    border: 1px solid #000;
+    background-color: #fff;
+    color: #000;
+  }

@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import classes from "./FetchingData.module.css";
 
 const url = "https://react-http-a309a-default-rtdb.firebaseio.com/user.json";
 
@@ -17,6 +18,7 @@ const FetchingData = () => {
       // const resdata = JSON.stringify(response.data);
       // const userObject = JSON.parse(resdata);
       const userData = Object.values(response.data);
+      // console.log(userData);
       setFetchedData(userData);
     } catch (error) {
       throw new Error("somthing wrong!!!");
@@ -28,6 +30,18 @@ const FetchingData = () => {
     fetchingData();
   }, []);
 
+  // const handleDeleteUser = async (email) => {
+  //   console.log(email);
+  //   console.log(fetchedData);
+  //   const updatedData = fetchedData.filter((user) => user.email !== email);
+  //   setFetchedData(updatedData);
+  //   console.log("for deletion", updatedData);
+  //   try {
+  //     const deleteUrl = `https://react-http-a309a-default-rtdb.firebaseio.com/user/${email}.json`;
+  //       const response = await axios.delete(deleteUrl);
+  //   } catch (error) {}
+  // };
+
   return (
     <div>
       {isLoading && <h3>Loading...</h3>}
@@ -35,12 +49,18 @@ const FetchingData = () => {
       {!isLoading &&
         fetchedData.map((user) => {
           return (
-            <div key={user.email}>
+            <div key={user.email} className={classes.container}>
               <ul>
                 <li>{user.fullname}</li>
                 <li>{user.username}</li>
                 <li>{user.email}</li>
               </ul>
+              <button
+                onClick={() => handleDeleteUser(user.email)}
+                className={classes.button}
+              >
+                Delete User
+              </button>
             </div>
           );
         })}
