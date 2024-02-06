@@ -1,23 +1,28 @@
-import { useEffect, useState } from "react";
-
 import "./App.css";
-import axios from "axios";
+import Root from "./pages/Root";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import UsersDetails, { loader as userDataLoader } from "./pages/UsersDetails";
+import CreateUser, { action as createUserAction } from "./pages/CreateUser";
+import Error from "./pages/Error";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <Error />,
+    children: [
+      { index: true, element: <UsersDetails />, loader: userDataLoader },
+      {
+        path: "create-user",
+        element: <CreateUser />,
+        action: createUserAction,
+      },
+    ],
+  },
+]);
 
 function App() {
-  async function fetchData() {
-    const response = await axios("http://localhost:3000/");
-    console.log(response);
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  return (
-    <>
-      <h1>hiii</h1>
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
