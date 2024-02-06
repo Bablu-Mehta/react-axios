@@ -46,7 +46,7 @@ const CreatingData = () => {
           <p className={classes.error}>{errors.email?.message}</p>
         )}
 
-        <button type="submit">Submit</button>
+        <button type="submit" className={classes.button}>Submit</button>
       </form>
     </>
   );
