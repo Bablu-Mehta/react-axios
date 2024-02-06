@@ -1,0 +1,30 @@
+.container {
+  width: fit-content;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: 10ms all ease;
+}
+
+.container > label {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.container > input {
+  padding: 8px 10px;
+  font-size: 18px;
+  border: 1px solid grey;
+  border-radius: 10px;
+}
+
+.container:hover {
+  background-color: grey;
+}
+
+.container:focus-within {
+  background-color: grey;
+}
