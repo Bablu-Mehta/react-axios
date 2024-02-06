@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import UsersDetails, { loader as userDataLoader } from "./pages/UsersDetails";
 import CreateUser, { action as createUserAction } from "./pages/CreateUser";
 import Error from "./pages/Error";
+import UserDetail from "./pages/UserDetail";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
         element: <CreateUser />,
         action: createUserAction,
       },
+      {
+        path:':id',
+        element:<UserDetail />
+      }
     ],
   },
 ]);

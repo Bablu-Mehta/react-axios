@@ -13,6 +13,7 @@ const UsersDetails = () => {
         {data &&
           data.map((user, index) => (
             <div key={index}>
+              <li>{user.id}</li>
               <li>{user.username}</li>
               <li>{user.email}</li>
             </div>

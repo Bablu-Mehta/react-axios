@@ -20,6 +20,7 @@ export async function action({ request, params }) {
   const formData = await request.formData();
 
   const response = await axios.post("http://localhost:3000/", {
+    id: (Math.random() * 100),
     username: formData.get("username"),
     email: formData.get("email"),
   });
