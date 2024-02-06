@@ -1,0 +1,16 @@
+.container {
+  width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.error {
+  font-size: 18px;
+  margin: 0;
+  color: red;
+  font-weight: 700;
+}
