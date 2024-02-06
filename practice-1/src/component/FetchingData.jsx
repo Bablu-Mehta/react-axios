@@ -17,9 +17,10 @@ const FetchingData = () => {
       // console.log("reponse data " + JSON.stringify(response.data));
       // const resdata = JSON.stringify(response.data);
       // const userObject = JSON.parse(resdata);
-      const userData = Object.values(response.data);
+      // console.log(response.data.fetchedData);
+      // const userData = Object.values(response.data);
       // console.log(userData);
-      setFetchedData(userData);
+      setFetchedData(response.data.fetchedData);
     } catch (error) {
       throw new Error("somthing wrong!!!");
     }
@@ -30,17 +31,16 @@ const FetchingData = () => {
     fetchingData();
   }, []);
 
-  // const handleDeleteUser = async (email) => {
-  //   console.log(email);
-  //   console.log(fetchedData);
-  //   const updatedData = fetchedData.filter((user) => user.email !== email);
-  //   setFetchedData(updatedData);
-  //   console.log("for deletion", updatedData);
-  //   try {
-  //     const deleteUrl = `https://react-http-a309a-default-rtdb.firebaseio.com/user/${email}.json`;
-  //       const response = await axios.delete(deleteUrl);
-  //   } catch (error) {}
-  // };
+  const handleDeleteUser = async (email) => {
+    console.log(email);
+    console.log(fetchedData);
+    const updatedData = fetchedData.filter((user) => user.email !== email);
+    setFetchedData(updatedData);
+    console.log("for deletion", updatedData);
+    try {
+      const response = await axios.patch(url, { fetchedData });
+    } catch (error) {}
+  };
 
   return (
     <div>

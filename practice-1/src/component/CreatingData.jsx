@@ -31,7 +31,7 @@ const CreatingData = () => {
 
   const userDataSubmission = async (data) => {
     try {
-      const response = await axios.post(url, { ...data });
+      const response = await axios.post(url, { user: data });
     } catch (error) {
       throw new Error("Failed to send the data.");
     }
