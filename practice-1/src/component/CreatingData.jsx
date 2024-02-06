@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../UI/Input";
 import classes from "./CreatingData.module.css";
 import { useForm } from "react-hook-form";
 import { schema } from "../validation";
 import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
+
+const url = "https://react-http-a309a-default-rtdb.firebaseio.com/user.json";
 
 const CreatingData = () => {
+  const [userData, setUserData] = useState("");
   const {
     register,
     formState: { errors },
@@ -21,9 +25,28 @@ const CreatingData = () => {
   });
 
   const handleSubmission = (data) => {
-    console.log(data);
+    setUserData(data);
     reset();
   };
+
+  const userDataSubmission = async (data) => {
+    try {
+      const response = await axios.post(url, { ...data });
+    } catch (error) {
+      throw new Error("Failed to send the data.");
+    }
+  };
+
+  useEffect(() => {
+    const sendReq = async () => {
+      if (userData) {
+        await userDataSubmission(userData);
+        console.log("data send successfully");
+      }
+    };
+
+    sendReq();
+  }, [userData]);
 
   return (
     <>
@@ -46,7 +69,9 @@ const CreatingData = () => {
           <p className={classes.error}>{errors.email?.message}</p>
         )}
 
-        <button type="submit" className={classes.button}>Submit</button>
+        <button type="submit" className={classes.button}>
+          Submit
+        </button>
       </form>
     </>
   );
