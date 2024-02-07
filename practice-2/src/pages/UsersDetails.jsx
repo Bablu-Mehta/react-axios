@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useSubmit } from "react-router-dom";
 import { fetchData } from "../util/http";
 import axios from "axios";
 
 const UsersDetails = () => {
   const data = useLoaderData();
-  console.log("inside the componenet", data);
+  // console.log("inside the componenet", data);
+  const submit = useSubmit();
+
   return (
     <>
       <div>UsersDetails</div>
@@ -16,6 +18,7 @@ const UsersDetails = () => {
               <li>{user.id}</li>
               <li>{user.username}</li>
               <li>{user.email}</li>
+              <Link to={`/${user.id}`}>User Details</Link>
             </div>
           ))}
       </ul>
@@ -31,6 +34,8 @@ export default UsersDetails;
 
 export async function loader() {
   const userData = await fetchData();
-  console.log("inside the loader", userData);
+  // console.log("inside the loader", userData);
   return userData;
 }
+
+

@@ -19,11 +19,13 @@ export default CreateUser;
 export async function action({ request, params }) {
   const formData = await request.formData();
 
-  const response = await axios.post("http://localhost:3000/", {
-    id: (Math.random() * 100),
+  const userData = {
+    id: Math.floor(Math.random() * 100),
     username: formData.get("username"),
     email: formData.get("email"),
-  });
+  };
+
+  const response = await axios.post("http://localhost:3000/", userData);
   console.log(response);
   console.log("data send successfully");
 

@@ -27,8 +27,15 @@ app.get("/", async (req, res) => {
 app.get("/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const data = JSON.parse(await fs.readFile(dataFilePath, "utf-8"));
-    const singleData = data.find((item) => item.id === id);
+    // console.log("id=", id);
+    // Read data from the file
+    const rawData = await fs.readFile(dataFilePath, "utf-8");
+    // console.log("raw data", rawData);
+    const data = JSON.parse(rawData);
+    // console.log("converted data", data);
+    // Find the object with the matching ID
+    const singleData = data.find((item) => item.id == parseInt(id));
+    // console.log("single data", singleData);
     if (singleData) {
       res.json(singleData);
     } else {
@@ -55,12 +62,15 @@ app.post("/", async (req, res) => {
 });
 
 // PUT API - Update data in file
-app.put("/:id", async (req, res) => {
+app.put("/:id/edit", async (req, res) => {
   try {
-    const id = req.params.id;
+    const id = parseInt(req.params.id);
+    // console.log("id:", id)
     const updatedData = req.body;
+    // console.log('body:', updatedData);
     const data = JSON.parse(await fs.readFile(dataFilePath, "utf-8"));
-    const dataIndex = data.findIndex((item) => item.id === id);
+    console.log("old dta:", data);
+    const dataIndex = data.findIndex((item) => item.id == parseInt(id));
     if (dataIndex !== -1) {
       data[dataIndex] = { id, ...updatedData };
       await fs.writeFile(dataFilePath, JSON.stringify(data, null, 2));
@@ -78,8 +88,12 @@ app.put("/:id", async (req, res) => {
 app.delete("/:id", async (req, res) => {
   try {
     const id = req.params.id;
+    // console.log("delting id:", id);
     const data = JSON.parse(await fs.readFile(dataFilePath, "utf-8"));
-    const newData = data.filter((item) => item.id !== id);
+    // console.log("old data:", data);
+    const newData = data.filter((item) => item.id != parseInt(id));
+    // console.log("new data:", newData);
+
     await fs.writeFile(dataFilePath, JSON.stringify(newData, null, 2));
     res.json({ message: "Data deleted successfully" });
   } catch (error) {
