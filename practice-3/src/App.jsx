@@ -3,7 +3,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./pages/Root";
 import Home from "./pages/Home";
 import UsersList, { loader as usersLoader } from "./pages/UsersList";
-import UserDetails, { loader as userLoader } from "./pages/UserDetails";
+import UserDetails, {
+  loader as userLoader,
+  action as userDeleteAction,
+} from "./pages/UserDetails";
 
 function App() {
   const router = createBrowserRouter([
@@ -18,7 +21,12 @@ function App() {
           element: <UsersList />,
           loader: usersLoader,
           children: [
-            { path: ":id", element: <UserDetails />, loader: userLoader },
+            {
+              path: ":id",
+              element: <UserDetails />,
+              loader: userLoader,
+              action: userDeleteAction,
+            },
           ],
         },
       ],
