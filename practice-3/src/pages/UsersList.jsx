@@ -1,17 +1,37 @@
-import React from 'react'
+import axios from "axios";
+import React from "react";
+import { Link, json, useLoaderData } from "react-router-dom";
 
 const UsersList = () => {
+  const users = useLoaderData();
   return (
-    <div>UsersList</div>
-  )
-}
+    <>
+      <div>
+        <ul>
+          {users.map((user) => (
+            <>
+              <li>{user.id}</li>
+              <li>{user.name}</li>
+              <li>{user.email}</li>
+              <Link to={`/users/${user.id}`}>User Detail</Link>
+            </>
+          ))}
+        </ul>
+      </div>
+    </>
+  );
+};
 
-export default UsersList
+export default UsersList;
 
-export async function loader(){
-    try {
-        const 
-    } catch (error) {
-        
-    }
+export async function loader() {
+  try {
+    const response = await axios("http://localhost:3000/");
+    // console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw json({
+      message: "something went wrong while fetching the data from server.",
+    });
+  }
 }
