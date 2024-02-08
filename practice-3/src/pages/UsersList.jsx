@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { Link, json, useLoaderData } from "react-router-dom";
+import { Link, Outlet, json, useLoaderData } from "react-router-dom";
 
 const UsersList = () => {
   const users = useLoaderData();
@@ -9,14 +9,15 @@ const UsersList = () => {
       <div>
         <ul>
           {users.map((user) => (
-            <>
+            <div key={user.id}>
               <li>{user.id}</li>
               <li>{user.name}</li>
               <li>{user.email}</li>
-              <Link to={`/users/${user.id}`}>User Detail</Link>
-            </>
+              <Link to={`${user.id}`}>User Detail</Link>
+            </div>
           ))}
         </ul>
+        <Outlet />
       </div>
     </>
   );
